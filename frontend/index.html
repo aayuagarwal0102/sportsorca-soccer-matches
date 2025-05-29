@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Upcoming Soccer Matches</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 2rem;
+      background-color: #f7f7f7;
+    }
+    h1 {
+      color: #333;
+    }
+    ul {
+      list-style: none;
+      padding: 0;
+    }
+    li {
+      background: #fff;
+      margin-bottom: 10px;
+      padding: 15px;
+      border-radius: 8px;
+      box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+    }
+  </style>
+</head>
+<body>
+  <h1>Upcoming Soccer Matches</h1>
+  <ul id="matches">Loading...</ul>
+
+  <script>
+    fetch('http://localhost:3000/api/matches')
+      .then(response => response.json())
+      .then(matches => {
+        const list = document.getElementById('matches');
+        list.innerHTML = '';
+
+        if (matches.length === 0) {
+          list.innerHTML = '<li>No upcoming matches found.</li>';
+          return;
+        }
+
+        matches.forEach(match => {
+          const li = document.createElement('li');
+          const date = new Date(match.date).toLocaleString();
+          li.textContent = `${match.team1} vs ${match.team2} — ${date}`;
+          list.appendChild(li);
+        });
+      })
+      .catch(error => {
+        console.error('Error loading matches:', error);
+        document.getElementById('matches').innerHTML = '<li>Error loading matches.</li>';
+      });
+  </script>
+</body>
+</html>
