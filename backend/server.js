@@ -1,3 +1,4 @@
+require('dotenv').config(); 
 const express = require('express');
 const fetch = require('node-fetch');
 const cors = require('cors');
@@ -6,12 +7,9 @@ const cors = require('cors');
 const app = express();
 app.use(cors());
 
-require('dotenv').config(); // Add this line at the top
+
 const API_KEY = process.env.API_KEY;
-
-
-
-const API_URL = `https://soccer.sportmonks.com/api/v2.0/fixtures/between/2025-01-30/2025-05-06?api_token=${API_KEY}&include=localTeam,visitorTeam`;
+const API_URL = `https://soccer.sportmonks.com/api/v2.0/fixtures/between/2022-01-30/2025-05-06?api_token=${API_KEY}&include=localTeam,visitorTeam`;
 
 
 
